@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Net.Http.Headers;
 
 namespace GW2ApiData
 {
@@ -20,10 +26,23 @@ namespace GW2ApiData
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        //timestamp when pulling api info, shows last pull data since this pull, such as gold made/lost 
+        //set legendary, tell you how close you are to said legendary
+        //HttpClient client = new HttpClient();
+        //ApiCall endPointCaller = new ApiCall();
         public MainWindow()
         {
             InitializeComponent();
+            
+            
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            ApiCall.RunAsync(keyTextBox.Text);
+            //ApiCall.RunAsync(client, keyTextBox.Text);
         }
     }
 }
