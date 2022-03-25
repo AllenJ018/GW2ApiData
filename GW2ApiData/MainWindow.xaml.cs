@@ -21,7 +21,7 @@ namespace GW2ApiData
 
         }
 
-        private void WindowSizeChanged(object sender, SizeChangedEventArgs e)
+       /* private void WindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
 
             var ah = ActualHeight;
@@ -29,7 +29,7 @@ namespace GW2ApiData
             var h = Height;
             var w = Width;
             Debug.WriteLine("ActualHeight(updated height value): {0}, ActualWidth(updated width value): {1}, Height(before size change): {2}, Width(before size change): {3}", ah, aw, h, w);
-        }
+        }*/
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -42,13 +42,11 @@ namespace GW2ApiData
                 var task = Task.Run(() => client.GetStringAsync(url));
                 task.Wait();
                 userDataAsJson = task.Result;
+                userData = JsonSerializer.Deserialize<UserData>(userDataAsJson);
+                outputTextBox.Text = userData.ToString();
             }
             else
                 MessageBox.Show("Error: Textbox is empty!");
-            Debug.WriteLine($"this is userDataAsJson: { userDataAsJson}");
-            userData = JsonSerializer.Deserialize<UserData>(userDataAsJson);
-            Debug.WriteLine($"this is userData: {userData}");
-            outputTextBox.Text = userData.ToString();
         }
 
 

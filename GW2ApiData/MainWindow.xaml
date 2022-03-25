@@ -8,7 +8,6 @@
         Title="MainWindow" Height="450" Width="800"
         MinHeight="409"
         MinWidth="758"
-        SizeChanged="WindowSizeChanged"
         Background="Black" HorizontalAlignment="Stretch" ResizeMode="CanResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -73,3 +72,4 @@
     </Grid>
     
 </Window>
+ <!--SizeChanged="WindowSizeChanged"-->
