@@ -29,6 +29,7 @@ namespace GW2ApiData
     {
         private static readonly HttpClient client = new HttpClient();
         private static UserKeyData userKey = new UserKeyData();
+        private static UserData userData = new UserData();
         public MainWindow()
         {
             InitializeComponent();
@@ -42,15 +43,15 @@ namespace GW2ApiData
             {
                 userKey.setKey(keyTextBox.Text);
                 string url = String.Format("{0}{1}{2}", userKey.getBaseAddress, userKey.getAccountAccessor, userKey.getKey);
-                // var response = asyncMethod(url);
-
                 var task = Task.Run(() => client.GetStringAsync(url));
                 task.Wait();
-                var response = task.Result;
+                userDataAsJson = task.Result;
             }
             else
                 MessageBox.Show("Error: Textbox is empty!");
-            Debug.WriteLine($"this is userDataAsJson last call: { userDataAsJson}");
+            Debug.WriteLine($"this is userDataAsJson: { userDataAsJson}");
+            userData = JsonSerializer.Deserialize<UserData>(userDataAsJson);
+            Debug.WriteLine($"this is userData: {userData}");
         }
 
 
@@ -58,5 +59,6 @@ namespace GW2ApiData
         {
             keyTextBox.Text = "FD6AE079-B9E3-F24D-B612-E136FDD5B1E2BE134C44-5140-430D-BEEA-A1FC7E91FE9E";
         }
+        
     }
 }
