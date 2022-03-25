@@ -22,7 +22,8 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="1" Grid.Column="1" Content="TestApiCall" Background="#FFBCA5C1" Click="Button_Click" Name="callApi" Margin="0,0,34,29"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="TestApiCall" Background="#FFBCA5C1" Click="Button_Click" Name="callApi" />
+        <Button Grid.Row="2" Grid.Column="1" Content="SetKey" Background="#FFBCA5C1" Click="Button_Click2" Name="setMeKey" />
         <TextBox Name="keyTextBox" Text="Enter Key Here!" Grid.Column="3" Margin="0,0,67,39" Grid.Row="1" />
 
     </Grid>

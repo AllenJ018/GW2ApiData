@@ -18,6 +18,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Http.Headers;
+using System.Diagnostics;
 
 namespace GW2ApiData
 {
@@ -26,23 +27,36 @@ namespace GW2ApiData
     /// </summary>
     public partial class MainWindow : Window
     {
-        //timestamp when pulling api info, shows last pull data since this pull, such as gold made/lost 
-        //set legendary, tell you how close you are to said legendary
-        //HttpClient client = new HttpClient();
-        //ApiCall endPointCaller = new ApiCall();
+        private static readonly HttpClient client = new HttpClient();
+        private static UserKeyData userKey = new UserKeyData();
         public MainWindow()
         {
             InitializeComponent();
-            
-            
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string userDataAsJson = "";
 
-            ApiCall.RunAsync(keyTextBox.Text);
-            //ApiCall.RunAsync(client, keyTextBox.Text);
+            if (keyTextBox.Text != "")
+            {
+                userKey.setKey(keyTextBox.Text);
+                string url = String.Format("{0}{1}{2}", userKey.getBaseAddress, userKey.getAccountAccessor, userKey.getKey);
+                // var response = asyncMethod(url);
+
+                var task = Task.Run(() => client.GetStringAsync(url));
+                task.Wait();
+                var response = task.Result;
+            }
+            else
+                MessageBox.Show("Error: Textbox is empty!");
+            Debug.WriteLine($"this is userDataAsJson last call: { userDataAsJson}");
+        }
+
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            keyTextBox.Text = "FD6AE079-B9E3-F24D-B612-E136FDD5B1E2BE134C44-5140-430D-BEEA-A1FC7E91FE9E";
         }
     }
 }

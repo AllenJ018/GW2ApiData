@@ -9,22 +9,21 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Http.Headers;
+using System.Diagnostics;
 
 
 
 namespace GW2ApiData
 {
 
-    public class userKeyData
+    public class UserKeyData
     {
-        private string key;
-        // = "FD6AE079-B9E3-F24D-B612-E136FDD5B1E2BE134C44-5140-430D-BEEA-A1FC7E91FE9E";
-        //string callToAPI = "api.guildwars2.com/v2/account?access_token=";
+        private string key = "FD6AE079-B9E3-F24D-B612-E136FDD5B1E2BE134C44-5140-430D-BEEA-A1FC7E91FE9E";
         private string baseAddress = "https://api.guildwars2.com";
         private string accountAccessor = "/v2/account?access_token=";
 
-        public userKeyData() { }
-        public userKeyData(string key)
+        public UserKeyData() { }
+        public UserKeyData(string key)
         {
             this.key = key;
         }
@@ -34,17 +33,17 @@ namespace GW2ApiData
             if (key != null)
                 this.key = key;
             else
-                Log.Error("Key is null");
+                Debug.WriteLine("Key is null");
         }
-        public string getKey() => key;
 
         public void setBaseAddress(string baseAddress)
         {
-            if (key != null)
+            if (baseAddress != null)
                 this.baseAddress = baseAddress;
             else
-                Log.Error("baseAddress is null");
+                Debug.WriteLine("baseAddress is null");
         }
+        public string getKey => key;
         public string getBaseAddress => baseAddress;
         public string getAccountAccessor => accountAccessor;
 
@@ -65,30 +64,5 @@ namespace GW2ApiData
         public int daily_ap { get; set; }
         public int monthly_ap { get; set; }
         public int wvw_rank { get; set; }
-    }
-
-    public class ApiCall
-    {
-
-        public static async Task RunAsync(string key)
-        {
-            HttpClient client = new HttpClient();
-            userKeyData user = new userKeyData();
-
-            user.setKey(key);
-            //client.BaseAddress = new Uri(User.getBaseAddress);
-            try
-            {
-                UserData userData = await client.GetFromJsonAsync<UserData>($"{user.getBaseAddress}{user.getAccountAccessor}{key}");
-                Log.Info($"{userData}");
-            }
-            catch(ArgumentException e)
-            {
-                Log.Error($"Something went wrong - {e}");
-            }
-        }
-
-        
-
     }
 }
