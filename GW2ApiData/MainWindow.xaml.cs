@@ -1,23 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
-using System.Net.Http.Headers;
 using System.Diagnostics;
 
 namespace GW2ApiData
@@ -33,6 +18,17 @@ namespace GW2ApiData
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        private void WindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+            var ah = ActualHeight;
+            var aw = ActualWidth;
+            var h = Height;
+            var w = Width;
+            Debug.WriteLine("ActualHeight(updated height value): {0}, ActualWidth(updated width value): {1}, Height(before size change): {2}, Width(before size change): {3}", ah, aw, h, w);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +48,7 @@ namespace GW2ApiData
             Debug.WriteLine($"this is userDataAsJson: { userDataAsJson}");
             userData = JsonSerializer.Deserialize<UserData>(userDataAsJson);
             Debug.WriteLine($"this is userData: {userData}");
+            outputTextBox.Text = userData.ToString();
         }
 
 
